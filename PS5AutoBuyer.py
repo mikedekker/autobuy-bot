@@ -420,8 +420,14 @@ def ask_to_configure_settings():
         },
         {
             'type': 'password',
+            'name': 'intertoys_password',
+            'message': 'What is your Intertoys account password?:',
+            'when': lambda answers: answers['auto_buy']
+        },
+        {
+            'type': 'password',
             'name': 'paypal_password',
-            'message': 'What is your Paypal account password (needed for auto-buy at Mediamarkt)?:',
+            'message': 'What is your Paypal account password (needed for auto-buy at webshops)?:',
             'when': lambda answers: answers['auto_buy']
         }
     ]
@@ -521,6 +527,8 @@ def delegate_purchase(webshop, url, settings):
         return buy_item_at_mediamarkt(initialize_webdriver(url), settings)
     elif webshop == 'nedgame':
         return buy_item_at_nedgame(initialize_webdriver(url), settings)
+    elif webshop == 'intertoys':
+        return buy_item_at_intertoys(initialize_webdriver(url), settings)
     else:
         console.log("Auto-buy is not implemented for {} yet.".format(webshop))
         return False
@@ -846,6 +854,59 @@ def buy_item_at_nedgame(driver, settings):
     except (SE.NoSuchElementException, SE.ElementNotInteractableException,
             SE.StaleElementReferenceException, SE.TimeoutException) as e:
         print("[ Something went wrong while trying to order at Nedgame ]")
+        driver.close()
+        driver.quit()
+        return False
+
+
+def buy_item_at_intertoys(driver, settings):
+    """
+    Function that will buy the item from the Intertoys webshop.
+
+    This is done by a sequence of interactions on the website, just like
+    a person would normally do. Only actually buys when application is in
+    production. See the config.ini setting `production`.
+
+    :param driver:
+    """
+    try:
+        # ACCEPT COOKIES
+        WDW(driver, 10).until(
+            EC.presence_of_element_located((By.ID, 'PrivacyAcceptBtnText'))).click()
+        # ORDER
+        WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'productPageAdd2Cart'))).click()
+        WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'GotoCartButton2'))).click()
+        # LOGIN
+        WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'WC_CheckoutLogon_FormInput_logonId'))).send_keys(settings.get("email"))
+        WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'WC_CheckoutLogon_FormInput_logonPassword'))).send_keys(
+            settings.get("intertoys_password"))
+        WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'guestShopperLogon'))).click()
+        # ORDER
+        WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'shopcartCheckout'))).click()
+        WDW(driver, 10).until(EC.presence_of_element_located(
+            (By.XPATH, "//*[@id='WC_CheckoutPaymentsAndBillingAddressf_div_2_1']/div[5]/label/div[3]/span"))).click()
+        WDW(driver, 10).until(EC.presence_of_element_located(
+            (By.XPATH, "//*[@id='WC_CheckoutPaymentsAndBillingAddressf_div_2_1']/div[5]/div/div[2]/a"))).click()
+        WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'singleOrderSummary'))).click()
+        # PAYPAL
+        WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'acceptAllButton'))).click()
+        email_input = WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'email')))
+        email_input.clear()
+        email_input.send_keys(settings.get("email"))
+        WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'password'))).send_keys(
+            settings.get("paypal_password"))
+        WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'btnLogin'))).click()
+        if in_production:
+            WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'confirmButtonTop'))).click()
+        else:
+            print("[ Confirmation of order prevented. Application not in production ] [ See config.ini ]")
+        # QUIT
+        driver.close()
+        driver.quit()
+        return True
+    except (SE.NoSuchElementException, SE.ElementNotInteractableException,
+            SE.StaleElementReferenceException, SE.TimeoutException) as e:
+        print("[ Something went wrong while trying to order at Intertoys ]")
         driver.close()
         driver.quit()
         return False
