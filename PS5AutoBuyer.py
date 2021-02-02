@@ -889,7 +889,8 @@ def buy_item_at_intertoys(driver, settings):
             (By.XPATH, "//*[@id='WC_CheckoutPaymentsAndBillingAddressf_div_2_1']/div[5]/div/div[2]/a"))).click()
         WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'singleOrderSummary'))).click()
         # PAYPAL
-        WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'acceptAllButton'))).click()
+        WDW(driver, 10).until(EC.presence_of_element_located(
+            (By.XPATH, '/html/body/div[4]/form/checkout-footer/div/div[1]/div/div[2]/button'))).click()
         email_input = WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'email')))
         email_input.clear()
         email_input.send_keys(settings.get("email"))
