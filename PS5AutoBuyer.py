@@ -871,10 +871,10 @@ def buy_item_at_intertoys(driver, settings):
     """
     try:
         # ACCEPT COOKIES
-        WDW(driver, 10).until(
-            EC.presence_of_element_located((By.ID, 'PrivacyAcceptBtnText'))).click()
+        WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'PrivacyAcceptBtnText'))).click()
         # ORDER
         WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'productPageAdd2Cart'))).click()
+        time.sleep(1)
         WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'GotoCartButton2'))).click()
         # LOGIN
         WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'WC_CheckoutLogon_FormInput_logonId'))).send_keys(settings.get("email"))
@@ -884,21 +884,18 @@ def buy_item_at_intertoys(driver, settings):
         # ORDER
         WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'shopcartCheckout'))).click()
         WDW(driver, 10).until(EC.presence_of_element_located(
-            (By.XPATH, "//*[@id='WC_CheckoutPaymentsAndBillingAddressf_div_2_1']/div[5]/label/div[3]/span"))).click()
+            (By.XPATH, "//*[@id='WC_CheckoutPaymentsAndBillingAddressf_div_2_1']/div[4]/label/div[3]/span"))).click()
+        time.sleep(1)
         WDW(driver, 10).until(EC.presence_of_element_located(
-            (By.XPATH, "//*[@id='WC_CheckoutPaymentsAndBillingAddressf_div_2_1']/div[5]/div/div[2]/a"))).click()
+            (By.XPATH, "//*[@id='WC_CheckoutPaymentsAndBillingAddressf_div_2_1']/div[4]/div/div[2]/a"))).click()
         WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'singleOrderSummary'))).click()
-        # PAYPAL
+        time.sleep(5)
         WDW(driver, 10).until(EC.presence_of_element_located(
-            (By.XPATH, '/html/body/div[4]/form/checkout-footer/div/div[1]/div/div[2]/button'))).click()
-        email_input = WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'email')))
-        email_input.clear()
-        email_input.send_keys(settings.get("email"))
-        WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'password'))).send_keys(
-            settings.get("paypal_password"))
-        WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'btnLogin'))).click()
+            (By.XPATH, "//*[@id='payment-zone']/form/table/tbody/tr[5]/td/div/input"))).click()
+        time.sleep(5)
         if in_production:
-            WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'confirmButtonTop'))).click()
+            WDW(driver, 10).until(EC.presence_of_element_located(
+                (By.XPATH, "//*[@id='payment-zone']/form/table/tbody/tr[7]/td/input"))).click()
         else:
             print("[ Confirmation of order prevented. Application not in production ] [ See config.ini ]")
         # QUIT
