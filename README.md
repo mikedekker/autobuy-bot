@@ -77,7 +77,7 @@ Coolblue      | Bank Transfer
 Mediamarkt    | Paypal  
 Nedgame       | Afterpay (phone number needed)
 Gamemania     | *To be implemented* 
-Intertoys     | *To be implemented*  
+Intertoys     | Afterpay  
 
 
 This feature allows for automatic purchase of the items. To be able to make the automatic purchase of items successful, 
