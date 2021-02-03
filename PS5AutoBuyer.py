@@ -704,7 +704,7 @@ def buy_item_at_bol(driver, url, settings):
             driver.find_element(By.LINK_TEXT, 'In winkelwagen').click()
         driver.get('https://www.bol.com/nl/order/basket.html')
         # CHECK CART FOR OTHER ITEMS AND DELETE THESE
-        if len(driver.find_elements(By.CLASS_NAME, 'shopping-cart__row')) != 2:
+        if len(driver.find_elements(By.CLASS_NAME, 'shopping-cart__row')) != 1:
             # there is more than the auto-buy item in cart
             only_one_item = False
             while not only_one_item:
@@ -721,14 +721,8 @@ def buy_item_at_bol(driver, url, settings):
                             only_one_item = True
         # PROCEED
         WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'continue_ordering_bottom'))).click()
-        # IF IN PRODUCTION, CONFIRM PURCHASE
+        #PAYMENT
         if in_production:
-            try:
-                WDW(driver, 10).until(EC.presence_of_element_located(
-                    (By.XPATH, '//*[@id="paymentsuggestions"]/div/div[2]/div/div/ul/div[1]/div'))).click()
-            except (SE.NoSuchElementException, SE.StaleElementReferenceException) as e:
-                print("Afterpay not available. Aborting.")
-            # confirm
             driver.find_element(By.XPATH, '//*[@id="executepayment"]/form/div/button').click()
         else:
             print("[ Confirmation of order prevented. Application not in production ] [ See config.ini ]")
