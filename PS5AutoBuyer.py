@@ -553,8 +553,6 @@ def buy_item_at_amazon(driver, settings, webshop):
         WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'add-to-cart-button'))).click()
         # GO TO BASKET
         WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'hlb-ptc-btn-native'))).click()
-        # ACCEPT BASKET
-        WDW(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'a-button-primary'))).click()
         # LOGIN USERNAME
         ActionChains(driver).pause(1) \
             .send_keys_to_element(driver.find_element(By.ID, 'ap_email'), settings.get("email")) \
