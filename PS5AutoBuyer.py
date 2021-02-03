@@ -839,14 +839,11 @@ def buy_item_at_nedgame(driver, settings):
         WDW(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'bigbutton'))).click()
         WDW(driver, 10).until(EC.visibility_of_element_located((By.ID, 'BetaalWijze_9'))).click()
         WDW(driver, 10).until(EC.visibility_of_element_located((By.ID, 'mobiel'))).send_keys(settings.get("phone"))
-        WDW(driver, 10).until(EC.visibility_of_element_located((By.NAME, 'dob_day'))).clear()
-        WDW(driver, 10).until(EC.visibility_of_element_located((By.NAME, 'dob_day'))).send_keys(10)
-        WDW(driver, 10).until(EC.visibility_of_element_located((By.NAME, 'dob_month'))).clear()
-        WDW(driver, 10).until(EC.visibility_of_element_located((By.NAME, 'dob_month'))).send_keys(10)
-        WDW(driver, 10).until(EC.visibility_of_element_located((By.NAME, 'dob_year'))).clear()
-        WDW(driver, 10).until(EC.visibility_of_element_located((By.NAME, 'dob_year'))).send_keys(1990)
-        WDW(driver, 10).until(EC.visibility_of_element_located(
-            (By.XPATH, '/html/body/div[4]/div/div[2]/div[2]/div/div[1]/form/div/div[6]/button'))).click()
+        if in_production:
+            WDW(driver, 10).until(EC.visibility_of_element_located(
+                (By.XPATH, '/html/body/div[4]/div/div[2]/div[2]/div/div[1]/form/div/div[6]/button'))).click()
+        else:
+            print("[ Confirmation of order prevented. Application not in production ] [ See config.ini ]")
         # QUIT
         driver.close()
         driver.quit()
