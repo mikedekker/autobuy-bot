@@ -609,7 +609,7 @@ def buy_item_at_coolblue(driver, settings):
         # ACCEPT COOKIES
         driver.find_element_by_name("accept_cookie").click()
         WDW(driver, 10).until(
-            EC.presence_of_element_located((By.XPATH, "/html/body/header/div/div[4]/ul/li[2]/a/span[2]"))).click()
+            EC.presence_of_element_located((By.XPATH, "/html/body/header/div/div[4]/ul/li[2]/a"))).click()
         # LOGIN
         ActionChains(driver).pause(1) \
             .send_keys_to_element(driver.find_element(By.ID, 'header_menu_emailaddress'), settings.get("email")) \
