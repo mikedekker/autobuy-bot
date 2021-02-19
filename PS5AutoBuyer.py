@@ -429,6 +429,18 @@ def ask_to_configure_settings():
             'name': 'paypal_password',
             'message': 'What is your Paypal account password (needed for auto-buy at webshops)?:',
             'when': lambda answers: answers['auto_buy']
+        },
+        # Creditcard CVC
+        {
+            'type': 'confirm',
+            'name': 'creditcard_payment',
+            'message': 'Do you want to pay with creditcard?'
+        },
+        {
+            'type': 'input',
+            'name': 'cvccode',
+            'message': 'Enter your Creditcard CVC code:'
+            'when': lambda answers: answers['creditcard_payment']
         }
     ]
 
@@ -721,7 +733,12 @@ def buy_item_at_bol(driver, url, settings):
         WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'continue_ordering_bottom'))).click()
         #PAYMENT
         if in_production:
-            driver.find_element(By.XPATH, '//*[@id="executepayment"]/form/div/button').click()
+            time.sleep(1)
+            WDW(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="executepayment"]/form/div/button'))).click()
+            WDW(driver, 10).until(EC.frame_to_be_available_and_switch_to_it((By.XPATH,"//iframe[@title='Iframe for secured card data input field' and @class='js-iframe']")))
+            WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'encryptedSecurityCode'))).send_keys(settings.get("cvccode"))
+            driver.switch_to.default_content()
+            WDW(driver, 10).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[4]/div[2]/div[2]/div/div[2]/button"))).click()
         else:
             print("[ Confirmation of order prevented. Application not in production ] [ See config.ini ]")
         driver.close()
