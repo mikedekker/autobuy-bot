@@ -439,7 +439,7 @@ def ask_to_configure_settings():
         {
             'type': 'input',
             'name': 'cvccode',
-            'message': 'Enter your Creditcard CVC code:'
+            'message': 'Enter your Creditcard CVC code:',
             'when': lambda answers: answers['creditcard_payment']
         }
     ]
