@@ -13,7 +13,6 @@ import requests
 import six
 from PyInquirer import (Token, ValidationError, Validator, prompt,
                         style_from_dict)
-from notifypy import Notify
 from pyfiglet import figlet_format
 from rich.console import Console
 from selenium.common import exceptions as SE
@@ -45,7 +44,6 @@ bot_chatID = parser['telegram']['tgchatid']
 # ================ #
 # INITIALIZE STUFF #
 # ================ #
-notification = Notify()
 console = Console()
 
 with open('resources\\user-agents.txt') as f:
@@ -426,12 +424,6 @@ def ask_to_configure_settings():
             'message': 'Enter your phone number (e.g. +31612345678):',
             'validate': PhoneValidator
         },
-        # natively notify
-        {
-            'type': 'confirm',
-            'name': 'natively_notify',
-            'message': 'Do you want to be updated via this machine?'
-        },
         # Telegram notify
         {
             'type': 'confirm',
@@ -537,10 +529,6 @@ def auto_buy_item(info, ordered_items, place, settings):
     """
     if delegate_purchase(info.get('webshop'), info.get('url'), settings):
         print("[=== ITEM ORDERED, HOORAY! ===] [=== {} ===]".format(place))
-        if settings.get("natively_notify"):
-            notification.title = "Hooray, item ordered at {}".format(place)
-            notification.message = "Check your email for a confirmation of your order"
-            notification.send()
         if settings.get("telegram_notify"):
             try:
                 bot_message = "Hooray! Item ordered at {}!".format(place)
@@ -1043,11 +1031,6 @@ def main():
                     except:
                         console.log(
                             "[=== ERROR ===] [=== SENDING TELEGRAM MESSAGE FAILED ===]")
-                # === NATIVE OS NOTIFICATION === #
-                if settings.get("natively_notify"):
-                    notification.title = "Item might be in stock at:".format(place)
-                    notification.message = info.get('url')
-                    notification.send()
                 # === IF ENABLED, BUY ITEM === #
                 if settings.get("auto_buy"):
                     ordered_items = auto_buy_item(info, ordered_items, place, settings)
