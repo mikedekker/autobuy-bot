@@ -9,7 +9,6 @@ import sys
 import time
 from os import system, name
 
-import callr
 import requests
 import six
 from PyInquirer import (Token, ValidationError, Validator, prompt,
@@ -40,6 +39,8 @@ __email__ = "olledejong@gmail.com"
 parser = configparser.ConfigParser()
 parser.read("config.ini")
 in_production = parser.getboolean("developer", "production")
+bot_token = parser['telegram']['tgtoken']
+bot_chatID = parser['telegram']['tgchatid']
 
 # ================ #
 # INITIALIZE STUFF #
@@ -120,14 +121,14 @@ locations = {
         'detectedAsBotLabel': "please contact api-services-support@amazon.com"},
     'Amazon DE Disk': {
         'webshop': 'amazon-de',
-        'url': 'https://www.amazon.de/-/de/dp/B08H93ZRK9/',
+        'url': 'https://www.amazon.de/PS5-Konsole-Sony-PlayStation-Standard/dp/B08VLX84G6',
         'inStock': False,
         'inStockLabel': "submit.add-to-cart-announce",
         'outOfStockLabel': "Derzeit nicht verfügbar.",
         'detectedAsBotLabel': "please contact api-services-support@amazon.com"},
     'Amazon DE Digital': {
         'webshop': 'amazon-de',
-        'url': 'https://www.amazon.de/-/de/playstation_4/dp/B08H98GVK8/',
+        'url': 'https://www.amazon.de/PS5-Konsole-Sony-PlayStation-Laufwerk/dp/B08W8JT5ZN',
         'inStock': False,
         'inStockLabel': "submit.add-to-cart-announce",
         'outOfStockLabel': "Derzeit nicht verfügbar.",
@@ -146,20 +147,6 @@ locations = {
         'inStockLabel': "submit.add-to-cart-announce",
         'outOfStockLabel': "Currently unavailable",
         'detectedAsBotLabel': "please contact api-services-support@amazon.com"},
-    'Alternate DE Disk': {
-        'webshop': 'Alternate.de',
-        'url': 'https://www.alternate.de/Sony-Interactive-Entertainment/PlayStation-5-Spielkonsole/html/product/1651220',
-        'inStock': False,
-        'inStockLabel': "arrow-cart-white_red-right",
-        'outOfStockLabel': "Artikel kann nicht gekauft werden",
-        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
-    'Alternate DE Digital': {
-        'webshop': 'Alternate.de',
-        'url': 'https://www.alternate.de/Sony-Interactive-Entertainment/PlayStation-5-Digital-Edition-Spielkonsole/html/product/1651221',
-        'inStock': False,
-        'inStockLabel': "arrow-cart-white_red-right",
-        'outOfStockLabel': "Artikel kann nicht gekauft werden",
-        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
     'COOLBLUE Disk': {
         'webshop': 'coolblue',
         'url': 'https://www.coolblue.nl/product/865866/playstation-5.html',
@@ -188,15 +175,15 @@ locations = {
         'inStockLabel': "btn btn--cta btn--buy btn--lg ] js_floating_basket_btn js_btn_buy js_preventable_buy_action",
         'outOfStockLabel': "outofstock-buy-block",
         'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
-    'MEDIAMARKT Disk': {
-        'webshop': 'mediamarkt',
+    'MEDIAMARKT NL Disk': {
+        'webshop': 'mediamarkt-nl',
         'url': 'https://www.mediamarkt.nl/nl/product/_sony-playstation-5-disk-edition-1664768.html',
         'inStock': False,
         'inStockLabel': "online online-ndd",
         'outOfStockLabel': "Online uitverkocht",
         'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
-    'MEDIAMARKT Digital': {
-        'webshop': 'mediamarkt',
+    'MEDIAMARKT NL Digital': {
+        'webshop': 'mediamarkt-nl',
         'url': 'https://www.mediamarkt.nl/nl/product/_sony-playstation-5-digital-edition-1665134.html',
         'inStock': False,
         'inStockLabel': "online online-ndd",
@@ -243,7 +230,98 @@ locations = {
         'inStock': False,
         'inStockLabel': "AddProductToBasket",
         'outOfStockLabel': "Uitverkocht",
-        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"}
+        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
+    'Alternate DE Disk': {
+        'webshop': 'Alternate.de',
+        'url': 'https://www.alternate.de/Sony-Interactive-Entertainment/PlayStation-5-Spielkonsole/html/product/1651220',
+        'inStock': False,
+        'inStockLabel': "arrow-cart-white_red-right",
+        'outOfStockLabel': "Artikel kann nicht gekauft werden",
+        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
+    'Alternate DE Digital': {
+        'webshop': 'Alternate.de',
+        'url': 'https://www.alternate.de/Sony-Interactive-Entertainment/PlayStation-5-Digital-Edition-Spielkonsole/html/product/1651221',
+        'inStock': False,
+        'inStockLabel': "arrow-cart-white_red-right",
+        'outOfStockLabel': "Artikel kann nicht gekauft werden",
+        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
+    'Mediamarkt DE Disk': {
+        'webshop': 'mediamarkt-de',
+        'url': 'https://www.mediamarkt.de/de/product/_sony-playstation%C2%AE5-2661938.html',
+        'inStock': False,
+        'inStockLabel': "pdp-add-to-cart-button",
+        'outOfStockLabel': "Dieser Artikel ist aktuell nicht verfügbar.<",
+        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
+    'Mediamarkt DE Digital': {
+        'webshop': 'mediamarkt-de',
+        'url': 'https://www.mediamarkt.de/de/product/_sony-playstation%C2%AE5-digital-edition-2661939.html',
+        'inStock': False,
+        'inStockLabel': "pdp-add-to-cart-button",
+        'outOfStockLabel': "Dieser Artikel ist aktuell nicht verfügbar.<",
+        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
+    'Saturn DE Disk': {
+        'webshop': 'saturn-de',
+        'url': 'https://www.saturn.de/de/product/_sony-playstation%C2%AE5-2661938.html',
+        'inStock': False,
+        'inStockLabel': "Buttonstyled__StyledButton-sc-140xkaw-1 dwrUQL BasketButton__StyledButton-sc-1qvc90d-0 gQISZA",
+        'outOfStockLabel': "Dieser Artikel ist aktuell nicht verfügbar.<",
+        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
+    'Saturn DE Digital': {
+        'webshop': 'saturn-de',
+        'url': 'https://www.saturn.de/de/product/_sony-playstation%C2%AE5-digital-edition-2661939.html',
+        'inStock': False,
+        'inStockLabel': "Buttonstyled__StyledButton-sc-140xkaw-1 dwrUQL BasketButton__StyledButton-sc-1qvc90d-0 gQISZA",
+        'outOfStockLabel': "Dieser Artikel ist aktuell nicht verfügbar.<",
+        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
+    'Euronics DE Disk': {
+        'webshop': 'euronics-de',
+        'url': 'https://www.euronics.de/spiele-und-konsolen-film-und-musik/spiele-und-konsolen/playstation-5/spielekonsole/playstation-5-konsole-4061856837826',
+        'inStock': False,
+        'inStockLabel': "buybox--button block btn is--cta is--icon-right is--center is--large",
+        'outOfStockLabel': "Leider ist der Artikel aktuell in unserem Onlineshop nicht verfügbar.",
+        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
+    'Euronics DE Digital': {
+        'webshop': 'euronics-de',
+        'url': 'https://www.euronics.de/spiele-und-konsolen-film-und-musik/spiele-und-konsolen/playstation-5/spielekonsole/playstation-5-digital-edition-konsole-4061856837833',
+        'inStock': False,
+        'inStockLabel': "buybox--button block btn is--cta is--icon-right is--center is--large",
+        'outOfStockLabel': "Leider ist der Artikel aktuell in unserem Onlineshop nicht verfügbar.",
+        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
+    'Alternate BE Disk': {
+        'webshop': 'alternate-be',
+        'url': 'https://www.alternate.be/Sony-Interactive-Entertainment/PlayStation-5-spelconsole/html/product/1651220',
+        'inStock': False,
+        'inStockLabel': "button-bg arrow-cart-white_red-right",
+        'outOfStockLabel': "Door de wereldwijde schaarste hebben we momenteel geen voorraad van de PlayStation 5 en ook geen informatie over de volgende levering. Hierdoor kan je dit product tijdelijk niet bestellen. Onze klantendienst kan je hier jammer genoeg ook geen verdere informatie over geven.",
+        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
+    'Alternate BE Digital': {
+        'webshop': 'alternate-be',
+        'url': 'https://www.alternate.be/Sony-Interactive-Entertainment/PlayStation-5-Digital-Edition-spelconsole/html/product/1651221',
+        'inStock': False,
+        'inStockLabel': "button-bg arrow-cart-white_red-right",
+        'outOfStockLabel': "Door de wereldwijde schaarste hebben we momenteel geen voorraad van de PlayStation 5 en ook geen informatie over de volgende levering. Hierdoor kan je dit product tijdelijk niet bestellen. Onze klantendienst kan je hier jammer genoeg ook geen verdere informatie over geven.",
+        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
+    'Mediamarkt BE Disk': {
+        'webshop': 'mediamarkt-be',
+        'url': 'https://www.mediamarkt.be/nl/product/_playstation-ps5-825-gb-9395201-1907411.html',
+        'inStock': False,
+        'inStockLabel': "EEC_ADD_TO_CART",
+        'outOfStockLabel': "Artikel tijdelijk niet in voorraad",
+        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
+    'Mediamarkt BE Digital': {
+        'webshop': 'mediamarkt-be',
+        'url': 'https://www.mediamarkt.be/nl/product/_playstation-ps5-digital-edition-825-gb-9395300-1907412.html',
+        'inStock': False,
+        'inStockLabel': "EEC_ADD_TO_CART",
+        'outOfStockLabel': "Artikel tijdelijk niet in voorraad",
+        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
+    'Fun BE Disk': {
+        'webshop': 'fun-be',
+        'url': 'https://www.fun.be/ps5-console-1.html',
+        'inStock': False,
+        'inStockLabel': "productAddToCartFormSubmit(this)",
+        'outOfStockLabel': "Niet in voorraad",
+        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
 }
 
 style = style_from_dict({
@@ -354,24 +432,11 @@ def ask_to_configure_settings():
             'name': 'natively_notify',
             'message': 'Do you want to be updated via this machine?'
         },
-        # sms notify
+        # Telegram notify
         {
             'type': 'confirm',
-            'name': 'sms_notify',
-            'message': 'Do you want to be updated via SMS / text messages?'
-        },
-        # callr credentials
-        {
-            'type': 'input',
-            'name': 'callr_username',
-            'message': 'What is your CALLR username?:',
-            'when': lambda answers: answers['sms_notify']
-        },
-        {
-            'type': 'password',
-            'name': 'callr_password',
-            'message': 'What is your CALLR password?:',
-            'when': lambda answers: answers['sms_notify']
+            'name': 'telegram_notify',
+            'message': 'Do you want to be updated via Telegram?'
         },
         # auto-buy
         {
@@ -476,14 +541,13 @@ def auto_buy_item(info, ordered_items, place, settings):
             notification.title = "Hooray, item ordered at {}".format(place)
             notification.message = "Check your email for a confirmation of your order"
             notification.send()
-        if settings.get("sms_notify"):
+        if settings.get("telegram_notify"):
             try:
-                api = callr.Api(settings.get("callr_username"), settings.get("callr_password"))
-                api.call('sms.send', 'SMS', settings.get("phone"),
-                         "Hooray! Item ordered at {}!".format(place), None)
-            except (callr.CallrException, callr.CallrLocalException) as e:
-                print("[=== ERROR ===] [=== SENDING SMS FAILED ===] [ CHECK ACCOUNT BALANCE AND VALIDITY OF CALLR "
-                      "CREDENTIALS ===]")
+                bot_message = "Hooray! Item ordered at {}!".format(place)
+                send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&parse_mode=Markdown&text=' + bot_message
+                requests.get(send_text)
+            except:
+                print("[=== ERROR ===] [=== SENDING TELEGRAM MESSAGE FAILED ===]")
         ordered_items += 1
         # if reached max amount of ordered items
         if not ordered_items < settings.get("max_ordered_items"):
@@ -535,8 +599,8 @@ def delegate_purchase(webshop, url, settings):
         return buy_item_at_coolblue(initialize_webdriver(url), settings)
     elif webshop == 'bol':
         return buy_item_at_bol(initialize_webdriver(url), url, settings)
-    elif webshop == 'mediamarkt':
-        return buy_item_at_mediamarkt(initialize_webdriver(url), settings)
+    elif webshop == 'mediamarkt-nl':
+        return buy_item_at_mediamarkt_nl(initialize_webdriver(url), settings)
     elif webshop == 'nedgame':
         return buy_item_at_nedgame(initialize_webdriver(url), settings)
     elif webshop == 'intertoys':
@@ -752,7 +816,7 @@ def buy_item_at_bol(driver, url, settings):
         return False
 
 
-def buy_item_at_mediamarkt(driver, settings):
+def buy_item_at_mediamarkt_nl(driver, settings):
     """
     Function that will buy the item from the Mediamarkt webshop.
 
@@ -961,7 +1025,7 @@ def main():
                 content = requests.get(info.get('url'), timeout=5, headers=headers).content.decode('utf-8')
             except (requests.exceptions.ConnectionError, requests.exceptions.ReadTimeout,
                     requests.exceptions.ChunkedEncodingError) as e:
-                console.log(f"[ [bold red]REQUEST ERROR[/] ] [ {place} ]")
+                console.log(f"[ [bold red]REQUEST ERROR[/]  ] [ {place} ]")
                 continue
             # ======================================== #
             # item in stock, proceed to try and buy it #
@@ -969,16 +1033,16 @@ def main():
             if (info.get('detectedAsBotLabel') not in content and
                     info.get('outOfStockLabel') not in content and
                     info.get('inStockLabel') in content):
-                console.log(f"[ [bold green]OMG, IN STOCK![/] ] [ {place} ]")
-                # === IF ENABLED, SEND SMS === #
-                if settings.get("sms_notify") and not info.get('inStock'):
+                console.log(f"[ [bold green]OMG, IN STOCK![/]  ] [ {place} ]")
+                # === IF ENABLED, SEND Telegram === #
+                if settings.get("telegram_notify") and not info.get('inStock'):
                     try:
-                        api = callr.Api(settings.get("callr_username"), settings.get("callr_password"))
-                        api.call('sms.send', 'SMS', settings.get("phone"),
-                                 "Item might be in stock at {}. URL: {}".format(place, info.get('url')), None)
-                    except (callr.CallrException, callr.CallrLocalException) as e:
+                        bot_message = "Item might be in stock at {}.\n\nURL: {}".format(place, info.get('url'))
+                        send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&parse_mode=Markdown&text=' + bot_message
+                        requests.get(send_text)
+                    except:
                         console.log(
-                            "[ [red bold]SENDING SMS FAILED[/] ] [ CHECK ACCOUNT BALANCE AND CALLR CREDENTIALS ]")
+                            "[=== ERROR ===] [=== SENDING TELEGRAM MESSAGE FAILED ===]")
                 # === NATIVE OS NOTIFICATION === #
                 if settings.get("natively_notify"):
                     notification.title = "Item might be in stock at:".format(place)
@@ -999,9 +1063,9 @@ def main():
                 referer = random.choice(referers)
             elif info.get('outOfStockLabel') in content:
                 info['inStock'] = False
-                console.log(f"[ OUT OF STOCK ] [ {place} ]")
+                console.log(f"[ OUT OF STOCK    ] [ {place} ]")
             else:
-                console.log(f"[ [bold red]ERROR IN PAGE[/] ] [ {place} ]")
+                console.log(f"[ [bold red]ERROR IN PAGE[/]   ] [ {place} ]")
             time.sleep(random.randint(45, 85) / 100.0)
 
         # print report
