@@ -1011,7 +1011,7 @@ def main():
                 "Connection": "close", "Upgrade-Insecure-Requests": "1"
             }
             try:
-                content = requests.get(info.get('url'), timeout=5, headers=headers).content.decode('utf-8')
+                content = requests.get(info.get('url'), timeout=10, headers=headers).content.decode('utf-8')
             except (requests.exceptions.ConnectionError, requests.exceptions.ReadTimeout,
                     requests.exceptions.ChunkedEncodingError) as e:
                 console.log(f"[ [bold red]REQUEST ERROR[/]   ] [ {place} ]")
@@ -1025,13 +1025,14 @@ def main():
                 # ===================== #
                 if info.get('webshop') in ['amazon-nl', 'amazon-fr', 'amazon-it', 'amazon-es', 'amazon-de', 'amazon-uk']:
                     soup = BeautifulSoup(content, 'html.parser')
-                    pricewitheu = soup.body.select_one('div#price span#priceblock_ourprice').get_text()
-                    pricewithcom = pricewitheu.replace('€', '')
-                    price = int(pricewithcom.replace(',', ''))
+                    price_raw = soup.body.select_one('div#price span#priceblock_ourprice').get_text()
+                    price_strip_space = price_raw.replace(' ', '')
+                    price_strip_euro = price_strip_space.replace('€', '')
+                    price = int(price_strip_euro.replace(',', ''))
                     if price <= 37000:
-                        console.log(f"[ [bold red]ERROR PRICE [/]    ] [ {place} ] [[bold red] {pricewitheu} [/]]")
+                        console.log(f"[ [bold red]ERROR PRICE [/]    ] [ {place} ] [[bold red] {price_raw} [/]]")
                     elif price >= 42000:
-                        print('De prijs is te hoog ' + pricewithcom)
+                        console.log(f"[ [bold red]ERROR PRICE [/]    ] [ {place} ] [[bold red] {price_raw} [/]]")
                     else:
                         console.log(f"[ [bold green]OMG, IN STOCK![/]  ] [ {place} ]")
                         # === IF ENABLED, SEND Telegram === #
