@@ -10,6 +10,7 @@ import time
 from os import system, name
 
 import requests
+from bs4 import BeautifulSoup
 import six
 from PyInquirer import (Token, ValidationError, Validator, prompt,
                         style_from_dict)
@@ -63,98 +64,98 @@ referers = [
 locations = {
     'Amazon NL Disk': {
         'webshop': 'amazon-nl',
-        'url': 'https://www.amazon.nl/Sony-PlayStation-PlayStation%C2%AE5-Console/dp/B08H93ZRK9',
+        'url': 'https://www.amazon.nl/dp/B08H93ZRK9',
         'inStock': False,
         'inStockLabel': "submit.add-to-cart-announce",
         'outOfStockLabel': "Momenteel niet verkrijgbaar",
         'detectedAsBotLabel': "please contact api-services-support@amazon.com"},
     'Amazon NL Digital': {
         'webshop': 'amazon-nl',
-        'url': 'https://www.amazon.nl/Sony-PlayStation-playstation_4-PlayStation%C2%AE5-Digital/dp/B08H98GVK8',
+        'url': 'https://www.amazon.nl/dp/B08H98GVK8',
         'inStock': False,
         'inStockLabel': "submit.add-to-cart-announce",
         'outOfStockLabel': "Momenteel niet verkrijgbaar",
         'detectedAsBotLabel': "please contact api-services-support@amazon.com"},
     'Amazon IT Disk': {
         'webshop': 'amazon-it',
-        'url': 'https://www.amazon.it/Playstation-Sony-PlayStation-5/dp/B08KKJ37F7',
+        'url': 'https://www.amazon.it/dp/B08KKJ37F7',
         'inStock': False,
         'inStockLabel': "submit.add-to-cart-announce",
         'outOfStockLabel': "Non disponibile",
         'detectedAsBotLabel': "please contact api-services-support@amazon.com"},
     'Amazon IT Digital': {
         'webshop': 'amazon-it',
-        'url': 'https://www.amazon.it/Sony-PlayStation-5-Digital-Edition/dp/B08KJF2D25',
+        'url': 'https://www.amazon.it/dp/B08KJF2D25',
         'inStock': False,
         'inStockLabel': "submit.add-to-cart-announce",
         'outOfStockLabel': "Non disponibile",
         'detectedAsBotLabel': "please contact api-services-support@amazon.com"},
     'Amazon FR Disk': {
         'webshop': 'amazon-fr',
-        'url': 'https://www.amazon.fr/PlayStation-%C3%89dition-Standard-DualSense-Couleur/dp/B08H93ZRK9',
+        'url': 'https://www.amazon.fr/dp/B08H93ZRK9',
         'inStock': False,
         'inStockLabel': "submit.add-to-cart-announce",
         'outOfStockLabel': "Actuellement indisponible",
         'detectedAsBotLabel': "please contact api-services-support@amazon.com"},
     'Amazon FR Digital': {
         'webshop': 'amazon-fr',
-        'url': 'https://www.amazon.fr/PlayStation-Digital-manette-DualSense-Couleur/dp/B08H98GVK8',
+        'url': 'https://www.amazon.fr/dp/B08H98GVK8',
         'inStock': False,
         'inStockLabel': "submit.add-to-cart-announce",
         'outOfStockLabel': "Actuellement indisponible",
         'detectedAsBotLabel': "please contact api-services-support@amazon.com"},
     'Amazon ES Disk': {
         'webshop': 'amazon-es',
-        'url': 'https://www.amazon.es/Playstation-Consola-PlayStation-5/dp/B08KKJ37F7',
+        'url': 'https://www.amazon.es/dp/B08KKJ37F7',
         'inStock': False,
         'inStockLabel': "submit.add-to-cart-announce",
         'outOfStockLabel': "No disponible",
         'detectedAsBotLabel': "please contact api-services-support@amazon.com"},
     'Amazon ES Digital': {
         'webshop': 'amazon-es',
-        'url': 'https://www.amazon.es/Playstation-Consola-PlayStation-5-Digital/dp/B08KJF2D25',
+        'url': 'https://www.amazon.es/dp/B08KJF2D25',
         'inStock': False,
         'inStockLabel': "submit.add-to-cart-announce",
         'outOfStockLabel': "No disponible",
         'detectedAsBotLabel': "please contact api-services-support@amazon.com"},
     'Amazon DE Disk': {
         'webshop': 'amazon-de',
-        'url': 'https://www.amazon.de/PS5-Konsole-Sony-PlayStation-Standard/dp/B08VLX84G6',
+        'url': 'https://www.amazon.de/dp/B08VLX84G6',
         'inStock': False,
         'inStockLabel': "submit.add-to-cart-announce",
         'outOfStockLabel': "Derzeit nicht verfügbar.",
         'detectedAsBotLabel': "please contact api-services-support@amazon.com"},
     'Amazon DE Digital': {
         'webshop': 'amazon-de',
-        'url': 'https://www.amazon.de/PS5-Konsole-Sony-PlayStation-Laufwerk/dp/B08W8JT5ZN',
+        'url': 'https://www.amazon.de/dp/B08W8JT5ZN',
         'inStock': False,
         'inStockLabel': "submit.add-to-cart-announce",
         'outOfStockLabel': "Derzeit nicht verfügbar.",
         'detectedAsBotLabel': "please contact api-services-support@amazon.com"},
     'Amazon UK Disk': {
         'webshop': 'amazon-uk',
-        'url': 'https://www.amazon.co.uk/PlayStation-9395003-5-Console/dp/B08H95Y452',
+        'url': 'https://www.amazon.co.uk/dp/B08H95Y452',
         'inStock': False,
         'inStockLabel': "submit.add-to-cart-announce",
         'outOfStockLabel': "Currently unavailable",
         'detectedAsBotLabel': "please contact api-services-support@amazon.com"},
     'Amazon UK Digital': {
         'webshop': 'amazon-uk',
-        'url': 'https://www.amazon.co.uk/PlayStation-5-Digital-Edition-Console/dp/B08H97NYGP',
+        'url': 'https://www.amazon.co.uk/dp/B08H97NYGP',
         'inStock': False,
         'inStockLabel': "submit.add-to-cart-announce",
         'outOfStockLabel': "Currently unavailable",
         'detectedAsBotLabel': "please contact api-services-support@amazon.com"},
     'COOLBLUE Disk': {
         'webshop': 'coolblue',
-        'url': 'https://www.coolblue.nl/product/865866/playstation-5.html',
+        'url': 'https://www.coolblue.nl/product/865866',
         'inStock': False,
         'inStockLabel': "In mijn winkelwagen",
         'outOfStockLabel': "Tijdelijk uitverkocht",
         'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
     'COOLBLUE Digital': {
         'webshop': 'coolblue',
-        'url': 'https://www.coolblue.nl/product/865867/playstation-5-digital-edition.html',
+        'url': 'https://www.coolblue.nl/product/865867',
         'inStock': False,
         'inStockLabel': "In mijn winkelwagen",
         'outOfStockLabel': "Tijdelijk uitverkocht",
@@ -1013,30 +1014,44 @@ def main():
                 content = requests.get(info.get('url'), timeout=5, headers=headers).content.decode('utf-8')
             except (requests.exceptions.ConnectionError, requests.exceptions.ReadTimeout,
                     requests.exceptions.ChunkedEncodingError) as e:
-                console.log(f"[ [bold red]REQUEST ERROR[/]  ] [ {place} ]")
+                console.log(f"[ [bold red]REQUEST ERROR[/]   ] [ {place} ]")
                 continue
             # ======================================== #
             # item in stock, proceed to try and buy it #
             # ======================================== #
-            if (info.get('detectedAsBotLabel') not in content and
-                    info.get('outOfStockLabel') not in content and
-                    info.get('inStockLabel') in content):
-                console.log(f"[ [bold green]OMG, IN STOCK![/]  ] [ {place} ]")
-                # === IF ENABLED, SEND Telegram === #
-                if settings.get("telegram_notify") and not info.get('inStock'):
-                    try:
-                        bot_message = "Item might be in stock at {}.\n\nURL: {}".format(place, info.get('url'))
-                        send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&parse_mode=Markdown&text=' + bot_message
-                        requests.get(send_text)
-                    except:
-                        console.log(
-                            "[=== ERROR ===] [=== SENDING TELEGRAM MESSAGE FAILED ===]")
-                # === IF ENABLED, BUY ITEM === #
-                if settings.get("auto_buy"):
-                    ordered_items = auto_buy_item(info, ordered_items, place, settings)
+            if (info.get('detectedAsBotLabel') not in content and  info.get('outOfStockLabel') not in content and info.get('inStockLabel') in content):
+                # ===================== #
+                # Price check at Amazon #
+                # ===================== #
+                if info.get('webshop') in ['amazon-nl', 'amazon-fr', 'amazon-it', 'amazon-es', 'amazon-de', 'amazon-uk']:
+                    soup = BeautifulSoup(content, 'html.parser')
+                    pricewitheu = soup.body.select_one('div#price span#priceblock_ourprice').get_text()
+                    pricewithcom = pricewitheu.replace('€', '')
+                    price = int(pricewithcom.replace(',', ''))
+                    if price <= 37000:
+                        console.log(f"[ [bold red]ERROR PRICE [/]    ] [ {place} ] [[bold red] {pricewitheu} [/]]")
+                    elif price >= 42000:
+                        print('De prijs is te hoog ' + pricewithcom)
+                    else:
+                        console.log(f"[ [bold green]OMG, IN STOCK![/]  ] [ {place} ]")
+                        # === IF ENABLED, SEND Telegram === #
+                        if settings.get("telegram_notify") and not info.get('inStock'):
+                            try:
+                                bot_message = "Item might be in stock at {}.".format(place)
+                                send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&disable_web_page_preview=True&parse_mode=Markdown&text=' + bot_message
+                                requests.get(send_text)
+                                bot_message = "URL: {}".format(info.get('url'))
+                                send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&disable_web_page_preview=True&text=' + bot_message
+                                requests.get(send_text)
+                            except:
+                                console.log(
+                                    "[=== ERROR ===] [=== SENDING TELEGRAM MESSAGE FAILED ===]")
+                        # === IF ENABLED, BUY ITEM === #
+                        if settings.get("auto_buy"):
+                            ordered_items = auto_buy_item(info, ordered_items, place, settings)
 
-                # === SET IN-STOCK TO TRUE === #
-                info['inStock'] = True
+                        # === SET IN-STOCK TO TRUE === #
+                        info['inStock'] = True
             elif info.get('detectedAsBotLabel') in content:
                 detected_as_bot.append(place)
                 console.log(f"[ [bold red]DETECTED AS BOT[/] ] [ {place} ]")
