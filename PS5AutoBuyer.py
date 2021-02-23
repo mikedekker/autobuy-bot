@@ -1055,7 +1055,7 @@ def main():
                         info['inStock'] = True
             elif info.get('detectedAsBotLabel') in content:
                 detected_as_bot.append(place)
-                console.log(f"[ [bold red]DETECTED AS BOT[/] ] [ {place} ]")
+                console.log(f"[ [bold red]DETECTED AS BOT[/] ] [ {place} ] [ [bold red]{referer}[/] ] [ {user_agent} ]")
                 times_detected_as_bot += 1
                 # rotate headers stuff
                 user_agent = random.choice(user_agents)
@@ -1069,8 +1069,8 @@ def main():
 
         # print report
         print('\n')
-        console.log(f"Total requests: [bold red]{len(locations)}[/]. Amount of times detected as bot: "
-                    f"[bold red]{times_detected_as_bot}[/].\nFor pages: [bold red]{detected_as_bot}\n")
+        console.log(f"Total requests: [bold red]{len(locations)}[/]. Amount of times detected as bot: "f"[bold red]{times_detected_as_bot}[/].")
+
 
 
 # start of program
