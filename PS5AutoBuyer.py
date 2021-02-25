@@ -322,6 +322,20 @@ locations = {
         'inStockLabel': "productAddToCartFormSubmit(this)",
         'outOfStockLabel': "Niet in voorraad",
         'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
+    'Fun BE Digital': {
+        'webshop': 'fun-be',
+        'url': 'https://www.fun.be/ps5-console.html',
+        'inStock': False,
+        'inStockLabel': "productAddToCartFormSubmit(this)",
+        'outOfStockLabel': "Niet in voorraad",
+        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
+    'Dreamland BE Digital': {
+        'webshop': 'fun-be',
+        'url': 'https://www.dreamland.be/e/nl/dl/playstation-5-console-digital-edition-wit-125033',
+        'inStock': False,
+        'inStockLabel': "productPageAdd2Cart",
+        'outOfStockLabel': "Niet in voorraad",
+        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
 }
 
 style = style_from_dict({
