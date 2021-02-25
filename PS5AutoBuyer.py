@@ -1006,6 +1006,7 @@ def main():
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
                 'accept-language': 'en-GB,en-US;q=0.9,en;q=0.8',
                 'sec-fetch-site': 'same-origin',
+                'sec-fetch-user': '?1',
                 'sec-fetch-mode': 'navigate',
                 'sec-fetch-dest': 'document',
                 'referer': referer,
