@@ -8,6 +8,7 @@ import re
 import sys
 import time
 from os import system, name
+from amazoncaptcha import AmazonCaptcha
 
 import requests
 from bs4 import BeautifulSoup
@@ -1050,13 +1051,15 @@ def main():
                         # === IF ENABLED, BUY ITEM === #
                         if settings.get("auto_buy"):
                             ordered_items = auto_buy_item(info, ordered_items, place, settings)
-
                         # === SET IN-STOCK TO TRUE === #
                         info['inStock'] = True
             elif info.get('detectedAsBotLabel') in content:
                 detected_as_bot.append(place)
                 console.log(f"[ [bold red]DETECTED AS BOT[/] ] [ {place} ] [ [bold red]{referer}[/] ] [ {user_agent} ]")
                 times_detected_as_bot += 1
+                if info.get('webshop') in ['amazon-nl', 'amazon-fr', 'amazon-it', 'amazon-es', 'amazon-de','amazon-uk']:
+                    captcha = AmazonCaptcha.fromlink('https://images-na.ssl-images-amazon.com/captcha/bysppkyq/Captcha_kqbetrplat.jpg')
+                    solution = captcha.solve()
                 # rotate headers stuff
                 user_agent = random.choice(user_agents)
                 referer = random.choice(referers)
@@ -1070,7 +1073,7 @@ def main():
         # print report
         print('\n')
         console.log(f"Total requests: [bold red]{len(locations)}[/]. Amount of times detected as bot: "f"[bold red]{times_detected_as_bot}[/].")
-
+        print('\n')
 
 
 # start of program
