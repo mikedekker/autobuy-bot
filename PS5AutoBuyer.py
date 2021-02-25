@@ -1074,6 +1074,11 @@ def main():
         # print report
         print('\n')
         console.log(f"Total requests: [bold red]{len(locations)}[/]. Amount of times detected as bot: "f"[bold red]{times_detected_as_bot}[/].")
+        if settings.get("telegram_notify"):
+            if int(times_detected_as_bot) >= 1 :
+                bot_message = "botmelding!!!!!!!!"
+                send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&disable_web_page_preview=True&text=' + bot_message
+                requests.get(send_text)
         print('\n')
 
 
