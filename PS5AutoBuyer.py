@@ -1031,9 +1031,9 @@ def main():
                     price_strip_space = price_raw.replace(' ', '')
                     price_strip_euro = price_strip_space.replace('€', '')
                     price = int(price_strip_euro.replace(',', ''))
-                    if price <= 37000:
+                    if price <= 39000:
                         console.log(f"[ [bold red]ERROR PRICE [/]    ] [ {place} ] [[bold red] {price_raw} [/]]")
-                    elif price >= 42000:
+                    elif price >= 41000:
                         console.log(f"[ [bold red]ERROR PRICE [/]    ] [ {place} ] [[bold red] {price_raw} [/]]")
                     else:
                         console.log(f"[ [bold green]OMG, IN STOCK![/]  ] [ {place} ]")
