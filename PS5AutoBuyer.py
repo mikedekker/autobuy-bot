@@ -1154,7 +1154,7 @@ def main():
                     driver.quit()
                     console.log(
                         f"[ [bold red]DETECTED AS BOT[/] ] [ {place} ] [ [bold yellow]Captcha solved[/] ]")
-                else
+                else:
                     console.log(f"[ [bold red]DETECTED AS BOT[/] ] [ {place} ]")
                 times_detected_as_bot += 1
                 # rotate headers stuff
