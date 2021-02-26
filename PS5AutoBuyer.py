@@ -350,8 +350,6 @@ locations = {
         'inStockLabel': "In winkelmandje",
         'outOfStockLabel': "icon_i_223_unavailable-circle",
         'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
-
-https://www.coolshop.nl/product/235CN4/
 }
 
 style = style_from_dict({
