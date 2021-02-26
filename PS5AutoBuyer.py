@@ -560,12 +560,9 @@ def auto_buy_item(info, ordered_items, place, settings):
     if delegate_purchase(info.get('webshop'), info.get('url'), settings):
         print("[=== ITEM ORDERED, HOORAY! ===] [=== {} ===]".format(place))
         if settings.get("telegram_notify"):
-            try:
-                bot_message = "Hooray! Item ordered at {}!".format(place)
-                send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&parse_mode=Markdown&text=' + bot_message
-                requests.get(send_text)
-            except:
-                print("[=== ERROR ===] [=== SENDING TELEGRAM MESSAGE FAILED ===]")
+            bot_message = "🎉Hooray! Item ordered at {}!🎉".format(place)
+            send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&parse_mode=Markdown&text=' + bot_message
+            requests.get(send_text)
         ordered_items += 1
         # if reached max amount of ordered items
         if not ordered_items < settings.get("max_ordered_items"):
@@ -1109,7 +1106,7 @@ def main():
                         # === IF ENABLED, SEND Telegram === #
                         if settings.get("telegram_notify") and not info.get('inStock'):
                             try:
-                                bot_message = "Item might be in stock at {}.".format(place)
+                                bot_message = "💶Item might be in stock at {}💶".format(place)
                                 send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&disable_web_page_preview=True&parse_mode=Markdown&text=' + bot_message
                                 requests.get(send_text)
                                 bot_message = "URL: {}".format(info.get('url'))
@@ -1172,7 +1169,7 @@ def main():
         console.log(f"Total requests: [bold red]{len(locations)}[/]. Amount of times detected as bot: "f"[bold red]{times_detected_as_bot}[/].")
         if settings.get("telegram_notify"):
             if int(times_detected_as_bot) >= 1 :
-                bot_message = "botmelding!!!!!!!!"
+                bot_message = "🤖Gedetecteerd als bot🤖"
                 send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&disable_web_page_preview=True&text=' + bot_message
                 requests.get(send_text)
         print('\n')
