@@ -1127,11 +1127,38 @@ def main():
                         info['inStock'] = True
             elif info.get('detectedAsBotLabel') in content:
                 detected_as_bot.append(place)
-                console.log(f"[ [bold red]DETECTED AS BOT[/] ] [ {place} ] [ [bold red]{referer}[/] ] [ {user_agent} ]")
-                times_detected_as_bot += 1
-                if info.get('webshop') in ['amazon-nl', 'amazon-fr', 'amazon-it', 'amazon-es', 'amazon-de','amazon-uk']:
-                    captcha = AmazonCaptcha.fromlink('https://images-na.ssl-images-amazon.com/captcha/bysppkyq/Captcha_kqbetrplat.jpg')
+                if info.get('webshop') in ['amazon-nl', 'amazon-fr', 'amazon-it', 'amazon-es', 'amazon-de', 'amazon-uk']:
+                    if info.get('webshop') == 'amazon-nl':
+                        bot_url = 'https://www.amazon.nl/errors/validateCaptcha'
+                    elif info.get('webshop') == 'amazon-fr':
+                        bot_url = 'https://www.amazon.fr/errors/validateCaptcha'
+                    elif info.get('webshop') == 'amazon-it':
+                        bot_url = 'https://www.amazon.it/errors/validateCaptcha'
+                    elif info.get('webshop') == 'amazon-es':
+                        bot_url = 'https://www.amazon.es/errors/validateCaptcha'
+                    elif info.get('webshop') == 'amazon-de':
+                        bot_url = 'https://www.amazon.de/errors/validateCaptcha'
+                    elif info.get('webshop') == 'amazon-uk':
+                        bot_url = 'https://www.amazon.co.uk/errors/validateCaptcha'
+                    from selenium.webdriver import Chrome, ChromeOptions
+                    options = ChromeOptions()
+                    options.use_chromium = True
+                    options.headless = True
+                    driver = Chrome(parser.get("driver", "path_to_driver"), options=options)
+                    driver.get(bot_url)
+                    captcha = AmazonCaptcha.fromdriver(driver)
                     solution = captcha.solve()
+                    ActionChains(driver).pause(1) \
+                        .send_keys_to_element(driver.find_element(By.ID, 'captchacharacters'), solution) \
+                        .click(driver.find_element(By.XPATH, '/html/body/div/div[1]/div[3]/div/div/form/div[2]/div/span/span/button')) \
+                        .perform()
+                    driver.close()
+                    driver.quit()
+                    console.log(
+                        f"[ [bold red]DETECTED AS BOT[/] ] [ {place} ] [ [bold yellow]Captcha solved[/] ]")
+                else
+                    console.log(f"[ [bold red]DETECTED AS BOT[/] ] [ {place} ]")
+                times_detected_as_bot += 1
                 # rotate headers stuff
                 user_agent = random.choice(user_agents)
                 referer = random.choice(referers)
