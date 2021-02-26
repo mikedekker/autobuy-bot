@@ -350,6 +350,8 @@ locations = {
         'inStockLabel': "In winkelmandje",
         'outOfStockLabel': "icon_i_223_unavailable-circle",
         'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
+
+https://www.coolshop.nl/product/235CN4/
 }
 
 style = style_from_dict({
@@ -645,8 +647,37 @@ def buy_item_at_amazon(driver, settings, webshop):
         driver.find_element_by_id("sp-cc-accept").click()
         # ADD TO CART
         WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'add-to-cart-button'))).click()
-        # GO TO BASKET
-        WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'hlb-ptc-btn-native'))).click()
+        # WARRANTY SCREEN CHECK
+        time.sleep(1)
+        amazon_warranty_right = True
+        try:
+            driver.find_element_by_id("attachSiNoCoverage-announce").click()
+        except SE.NoSuchElementException:
+            amazon_warranty_right = False
+        amazon_warranty_middle = True
+        try:
+            driver.find_element_by_id("siNoCoverage-announce").click()
+        except SE.NoSuchElementException:
+            amazon_warranty_middle = False
+        if amazon_warranty_right == True:
+            if webshop == 'amazon-nl':
+                cart_url = 'https://amazon.nl/gp/cart/view.html'
+            elif webshop == 'amazon-fr':
+                cart_url = 'https://amazon.fr/gp/cart/view.html'
+            elif webshop == 'amazon-it':
+                cart_url = 'https://amazon.it/gp/cart/view.html'
+            elif webshop == 'amazon-es':
+                cart_url = 'https://amazon.es/gp/cart/view.html'
+            elif webshop == 'amazon-de':
+                cart_url = 'https://amazon.de/gp/cart/view.html'
+            elif webshop == 'amazon-uk':
+                cart_url = 'https://amazon.co.uk/gp/cart/view.html'
+            time.sleep(2)
+            driver.get(cart_url)
+            WDW(driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, '//*[@id="sc-buy-box-ptc-button"]/span/input'))).click()
+        elif amazon_warranty_right == False or amazon_warranty_middle == True or amazon_warranty_middle == False:
+            WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'hlb-ptc-btn-native'))).click()
         # LOGIN USERNAME
         ActionChains(driver).pause(1) \
             .send_keys_to_element(driver.find_element(By.ID, 'ap_email'), settings.get("email")) \
@@ -657,19 +688,31 @@ def buy_item_at_amazon(driver, settings, webshop):
             .send_keys_to_element(driver.find_element(By.ID, 'ap_password'), settings.get("amazon_password")) \
             .click(driver.find_element(By.ID, 'signInSubmit')) \
             .perform()
-        # PROCESS DIFFERS ONLY FOR AMAZON UK
-        if webshop != 'amazon-uk':
+        # PROCESS DIFFERS
+        amazon_endscreen = True
+        try:
+            driver.find_element_by_class_name('place-your-order-button')
+        except SE.NoSuchElementException:
+            amazon_endscreen = False
+        if amazon_endscreen == False:
             # ACCEPT SHIPPING ADDRESS
             WDW(driver, 10).until(
                 EC.presence_of_element_located((By.XPATH, "//*[@id='address-book-entry-0']/div[2]/span/a"))).click()
             # ACCEPT SHIPPING METHOD
             WDW(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'a-button-text'))).click()
             # SELECT PAYMENT METHOD
-            WDW(driver, 10).until(EC.presence_of_element_located((By.XPATH,
-                                                                  '/html/body/div[5]/div/div[2]/div[2]/div/div[2]/div/form/div/div/div/div[3]/div[2]/div/div/div/div/div/div/span/div/label/input'))).click()
-            WDW(driver, 10).until(EC.presence_of_element_located((By.XPATH,
-                                                                  '/html/body/div[5]/div/div[2]/div[2]/div/div[2]/div/form/div/div/div/div[3]/div[2]/div/div/div/div/div/div/span/div/label/input'))).click()
-            WDW(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'a-button-text'))).click()
+            if webshop == 'amazon-uk':
+                WDW(driver, 10).until(EC.presence_of_element_located((By.XPATH,
+                                                                      '/html/body/div[5]/div/div[2]/div[2]/div/div[2]/div/form/div/div/div/div[3]/div[2]/div/div/div/div/div/div/span/div/label/input'))).click()
+                WDW(driver, 10).until(EC.presence_of_element_located((By.XPATH,
+                                                                      '/html/body/div[5]/div/div[2]/div[2]/div/div[2]/div/form/div/div/div/div[3]/div[2]/div/div/div/div/div/div/span/div/label/input'))).click()
+            if webshop == 'amazon-de':
+                WDW(driver, 10).until(EC.presence_of_element_located((By.XPATH,
+                                                                      '/html/body/div[5]/div[1]/div[2]/div[3]/div/div[2]/div[2]/form/div/div/div/div[3]/div[2]/div/div/div/div/div/div[1]/span/div/label/input'))).click()
+            WDW(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'a-button-input'))).click()
+            time.sleep(10)
+        elif amazon_endscreen == True:
+            time.sleep(20)
         # IF IN PRODUCTION, CONFIRM PURCHASE
         if in_production:
             WDW(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'place-your-order-button'))).click()
