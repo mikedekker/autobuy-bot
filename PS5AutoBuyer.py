@@ -1123,8 +1123,22 @@ def main():
                     soup = BeautifulSoup(content, 'html.parser')
                     price_raw = soup.body.select_one('div#price span#priceblock_ourprice').get_text()
                     price_strip_space = price_raw.replace(' ', '')
-                    price_strip_euro = price_strip_space.replace('€', '')
-                    price = int(price_strip_euro.replace(',', ''))
+                    try:
+                        price_strip_euro = price_strip_space.replace('€', '')
+                    except:
+                        pass
+                    try:
+                        price_strip_euro = price_strip_space.replace('£', '')
+                    except:
+                        pass
+                    try:
+                        price = int(price_strip_euro.replace(',', ''))
+                    except:
+                        pass
+                    try:
+                        price = int(price_strip_euro.replace('.', ''))
+                    except:
+                        pass
                     if price <= 39000:
                         console.log(f"[ [bold red]ERROR PRICE [/]    ] [ {place} ] [[bold red] {price_raw} [/]]")
                     elif price >= 41000:
