@@ -364,20 +364,20 @@ locations = {
         'inStockLabel': "productPageAdd2Cart",
         'outOfStockLabel': "Niet in voorraad",
         'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
-    'Fnac BE Disk': {
-        'webshop': 'fnac-be',
-        'url': 'https://www.nl.fnac.be/a14119956',
-        'inStock': False,
-        'inStockLabel': "In winkelmandje",
-        'outOfStockLabel': "Niet in voorraad",
-        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
-    'Fnac BE Digital': {
-        'webshop': 'fnac-be',
-        'url': 'https://www.nl.fnac.be/a14119956',
-        'inStock': False,
-        'inStockLabel': "In winkelmandje",
-        'outOfStockLabel': "icon_i_223_unavailable-circle",
-        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
+#    'Fnac BE Disk': {
+#        'webshop': 'fnac-be',
+#        'url': 'https://www.nl.fnac.be/a14119956',
+#        'inStock': False,
+#        'inStockLabel': "In winkelmandje",
+#        'outOfStockLabel': "Niet in voorraad",
+#        'detectedAsBotLabel': "You have been blocked."},
+#    'Fnac BE Digital': {
+#        'webshop': 'fnac-be',
+#        'url': 'https://www.nl.fnac.be/a14119956',
+#        'inStock': False,
+#        'inStockLabel': "In winkelmandje",
+#        'outOfStockLabel': "icon_i_223_unavailable-circle",
+#        'detectedAsBotLabel': "You have been blocked."},
 }
 
 style = style_from_dict({
