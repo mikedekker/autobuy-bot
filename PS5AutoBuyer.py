@@ -154,6 +154,34 @@ locations = {
         'inStockLabel': "In mijn winkelwagen",
         'outOfStockLabel': "Tijdelijk uitverkocht",
         'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
+    'COOLBLUE Disk set spider man + pulse 3D headset': {
+        'webshop': 'coolblue',
+        'url': 'https://www.coolblue.nl/product/878811',
+        'inStock': False,
+        'inStockLabel': "In mijn winkelwagen",
+        'outOfStockLabel': "Tijdelijk uitverkocht",
+        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
+    'COOLBLUE Disk set FIFA21 + controller': {
+        'webshop': 'coolblue',
+        'url': 'https://www.coolblue.nl/product/878814',
+        'inStock': False,
+        'inStockLabel': "In mijn winkelwagen",
+        'outOfStockLabel': "Tijdelijk uitverkocht",
+        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
+    'COOLBLUE Disk set COD black ops + steelseries headset': {
+        'webshop': 'coolblue',
+        'url': 'https://www.coolblue.nl/product/878814',
+        'inStock': False,
+        'inStockLabel': "In mijn winkelwagen",
+        'outOfStockLabel': "Tijdelijk uitverkocht",
+        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
+    'COOLBLUE Disk set met controller': {
+        'webshop': 'coolblue',
+        'url': 'https://www.coolblue.nl/product/878814',
+        'inStock': False,
+        'inStockLabel': "In mijn winkelwagen",
+        'outOfStockLabel': "Tijdelijk uitverkocht",
+        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
     'COOLBLUE Digital': {
         'webshop': 'coolblue',
         'url': 'https://www.coolblue.nl/product/865867',
@@ -1167,11 +1195,6 @@ def main():
         # print report
         print('\n')
         console.log(f"Total requests: [bold red]{len(locations)}[/]. Amount of times detected as bot: "f"[bold red]{times_detected_as_bot}[/].")
-        if settings.get("telegram_notify"):
-            if int(times_detected_as_bot) >= 1 :
-                bot_message = "🤖Gedetecteerd als bot🤖"
-                send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&disable_web_page_preview=True&text=' + bot_message
-                requests.get(send_text)
         print('\n')
 
 
