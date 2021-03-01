@@ -279,48 +279,48 @@ locations = {
         'inStockLabel': "arrow-cart-white_red-right",
         'outOfStockLabel': "Artikel kann nicht gekauft werden",
         'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
-#    'Mediamarkt DE Disk': {
-#        'webshop': 'mediamarkt-de',
-#        'url': 'https://www.mediamarkt.de/de/product/_sony-playstation%C2%AE5-2661938.html',
-#        'inStock': False,
-#        'inStockLabel': "pdp-add-to-cart-button",
-#        'outOfStockLabel': "Dieser Artikel ist aktuell nicht verfügbar.<",
-#        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
-#    'Mediamarkt DE Digital': {
-#        'webshop': 'mediamarkt-de',
-#        'url': 'https://www.mediamarkt.de/de/product/_sony-playstation%C2%AE5-digital-edition-2661939.html',
-#        'inStock': False,
-#        'inStockLabel': "pdp-add-to-cart-button",
-#        'outOfStockLabel': "Dieser Artikel ist aktuell nicht verfügbar.<",
-#        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
-#    'Saturn DE Disk': {
-#        'webshop': 'saturn-de',
-#        'url': 'https://www.saturn.de/de/product/_sony-playstation%C2%AE5-2661938.html',
-#        'inStock': False,
-#        'inStockLabel': "Buttonstyled__StyledButton-sc-140xkaw-1 dwrUQL BasketButton__StyledButton-sc-1qvc90d-0 gQISZA",
-#        'outOfStockLabel': "Dieser Artikel ist aktuell nicht verfügbar.<",
-#        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
-#    'Saturn DE Digital': {
-#        'webshop': 'saturn-de',
-#        'url': 'https://www.saturn.de/de/product/_sony-playstation%C2%AE5-digital-edition-2661939.html',
-#        'inStock': False,
-#        'inStockLabel': "Buttonstyled__StyledButton-sc-140xkaw-1 dwrUQL BasketButton__StyledButton-sc-1qvc90d-0 gQISZA",
-#        'outOfStockLabel': "Dieser Artikel ist aktuell nicht verfügbar.<",
-#        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
-#    'Euronics DE Disk': {
-#        'webshop': 'euronics-de',
-#        'url': 'https://www.euronics.de/spiele-und-konsolen-film-und-musik/spiele-und-konsolen/playstation-5/spielekonsole/playstation-5-konsole-4061856837826',
-#        'inStock': False,
-#        'inStockLabel': "buybox--button block btn is--cta is--icon-right is--center is--large",
-#        'outOfStockLabel': "Leider ist der Artikel aktuell in unserem Onlineshop nicht verfügbar.",
-#        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
-#    'Euronics DE Digital': {
-#        'webshop': 'euronics-de',
-#        'url': 'https://www.euronics.de/spiele-und-konsolen-film-und-musik/spiele-und-konsolen/playstation-5/spielekonsole/playstation-5-digital-edition-konsole-4061856837833',
-#        'inStock': False,
-#        'inStockLabel': "buybox--button block btn is--cta is--icon-right is--center is--large",
-#        'outOfStockLabel': "Leider ist der Artikel aktuell in unserem Onlineshop nicht verfügbar.",
-#        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
+    #    'Mediamarkt DE Disk': {
+    #        'webshop': 'mediamarkt-de',
+    #        'url': 'https://www.mediamarkt.de/de/product/_sony-playstation%C2%AE5-2661938.html',
+    #        'inStock': False,
+    #        'inStockLabel': "pdp-add-to-cart-button",
+    #        'outOfStockLabel': "Dieser Artikel ist aktuell nicht verfügbar.<",
+    #        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
+    #    'Mediamarkt DE Digital': {
+    #        'webshop': 'mediamarkt-de',
+    #        'url': 'https://www.mediamarkt.de/de/product/_sony-playstation%C2%AE5-digital-edition-2661939.html',
+    #        'inStock': False,
+    #        'inStockLabel': "pdp-add-to-cart-button",
+    #        'outOfStockLabel': "Dieser Artikel ist aktuell nicht verfügbar.<",
+    #        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
+    #    'Saturn DE Disk': {
+    #        'webshop': 'saturn-de',
+    #        'url': 'https://www.saturn.de/de/product/_sony-playstation%C2%AE5-2661938.html',
+    #        'inStock': False,
+    #        'inStockLabel': "Buttonstyled__StyledButton-sc-140xkaw-1 dwrUQL BasketButton__StyledButton-sc-1qvc90d-0 gQISZA",
+    #        'outOfStockLabel': "Dieser Artikel ist aktuell nicht verfügbar.<",
+    #        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
+    #    'Saturn DE Digital': {
+    #        'webshop': 'saturn-de',
+    #        'url': 'https://www.saturn.de/de/product/_sony-playstation%C2%AE5-digital-edition-2661939.html',
+    #        'inStock': False,
+    #        'inStockLabel': "Buttonstyled__StyledButton-sc-140xkaw-1 dwrUQL BasketButton__StyledButton-sc-1qvc90d-0 gQISZA",
+    #        'outOfStockLabel': "Dieser Artikel ist aktuell nicht verfügbar.<",
+    #        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
+    #    'Euronics DE Disk': {
+    #        'webshop': 'euronics-de',
+    #        'url': 'https://www.euronics.de/spiele-und-konsolen-film-und-musik/spiele-und-konsolen/playstation-5/spielekonsole/playstation-5-konsole-4061856837826',
+    #        'inStock': False,
+    #        'inStockLabel': "buybox--button block btn is--cta is--icon-right is--center is--large",
+    #        'outOfStockLabel': "Leider ist der Artikel aktuell in unserem Onlineshop nicht verfügbar.",
+    #        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
+    #    'Euronics DE Digital': {
+    #        'webshop': 'euronics-de',
+    #        'url': 'https://www.euronics.de/spiele-und-konsolen-film-und-musik/spiele-und-konsolen/playstation-5/spielekonsole/playstation-5-digital-edition-konsole-4061856837833',
+    #        'inStock': False,
+    #        'inStockLabel': "buybox--button block btn is--cta is--icon-right is--center is--large",
+    #        'outOfStockLabel': "Leider ist der Artikel aktuell in unserem Onlineshop nicht verfügbar.",
+    #        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
     'Alternate BE Disk': {
         'webshop': 'alternate-be',
         'url': 'https://www.alternate.be/Sony-Interactive-Entertainment/PlayStation-5-spelconsole/html/product/1651220',
@@ -370,20 +370,20 @@ locations = {
         'inStockLabel': "In winkelwagen",
         'outOfStockLabel': "Niet in voorraad",
         'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
-#    'Fnac BE Disk': {
-#        'webshop': 'fnac-be',
-#        'url': 'https://www.nl.fnac.be/a14119956',
-#        'inStock': False,
-#        'inStockLabel': "In winkelmandje",
-#        'outOfStockLabel': "Niet in voorraad",
-#        'detectedAsBotLabel': "You have been blocked."},
-#    'Fnac BE Digital': {
-#        'webshop': 'fnac-be',
-#        'url': 'https://www.nl.fnac.be/a14119956',
-#        'inStock': False,
-#        'inStockLabel': "In winkelmandje",
-#        'outOfStockLabel': "icon_i_223_unavailable-circle",
-#        'detectedAsBotLabel': "You have been blocked."},
+    #    'Fnac BE Disk': {
+    #        'webshop': 'fnac-be',
+    #        'url': 'https://www.nl.fnac.be/a14119956',
+    #        'inStock': False,
+    #        'inStockLabel': "In winkelmandje",
+    #        'outOfStockLabel': "Niet in voorraad",
+    #        'detectedAsBotLabel': "You have been blocked."},
+    #    'Fnac BE Digital': {
+    #        'webshop': 'fnac-be',
+    #        'url': 'https://www.nl.fnac.be/a14119956',
+    #        'inStock': False,
+    #        'inStockLabel': "In winkelmandje",
+    #        'outOfStockLabel': "icon_i_223_unavailable-circle",
+    #        'detectedAsBotLabel': "You have been blocked."},
 }
 
 style = style_from_dict({
@@ -885,14 +885,18 @@ def buy_item_at_bol(driver, url, settings):
                             only_one_item = True
         # PROCEED
         WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'continue_ordering_bottom'))).click()
-        #PAYMENT
+        # PAYMENT
         if in_production:
             time.sleep(1)
-            WDW(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="executepayment"]/form/div/button'))).click()
-            WDW(driver, 10).until(EC.frame_to_be_available_and_switch_to_it((By.XPATH,"//iframe[@title='Iframe for secured card data input field' and @class='js-iframe']")))
-            WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'encryptedSecurityCode'))).send_keys(settings.get("cvccode"))
+            WDW(driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, '//*[@id="executepayment"]/form/div/button'))).click()
+            WDW(driver, 10).until(EC.frame_to_be_available_and_switch_to_it(
+                (By.XPATH, "//iframe[@title='Iframe for secured card data input field' and @class='js-iframe']")))
+            WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'encryptedSecurityCode'))).send_keys(
+                settings.get("cvccode"))
             driver.switch_to.default_content()
-            WDW(driver, 10).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[4]/div[2]/div[2]/div/div[2]/button"))).click()
+            WDW(driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, "/html/body/div[4]/div[2]/div[2]/div/div[2]/button"))).click()
         else:
             print("[ Confirmation of order prevented. Application not in production ] [ See config.ini ]")
         driver.close()
@@ -1037,8 +1041,10 @@ def buy_item_at_intertoys(driver, settings):
         time.sleep(1)
         WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'GotoCartButton2'))).click()
         # LOGIN
-        WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'WC_CheckoutLogon_FormInput_logonId'))).send_keys(settings.get("email"))
-        WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'WC_CheckoutLogon_FormInput_logonPassword'))).send_keys(
+        WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'WC_CheckoutLogon_FormInput_logonId'))).send_keys(
+            settings.get("email"))
+        WDW(driver, 10).until(
+            EC.presence_of_element_located((By.ID, 'WC_CheckoutLogon_FormInput_logonPassword'))).send_keys(
             settings.get("intertoys_password"))
         WDW(driver, 10).until(EC.presence_of_element_located((By.ID, 'guestShopperLogon'))).click()
         # ORDER
@@ -1083,6 +1089,7 @@ def main():
     Between every check, there is a wait of 30 seconds.
     """
     # get settings
+    global price
     settings = ask_to_configure_settings()
     user_agent = random.choice(user_agents)
     referer = random.choice(referers)
@@ -1121,7 +1128,7 @@ def main():
             # ======================================== #
             # item in stock, proceed to try and buy it #
             # ======================================== #
-            if (info.get('detectedAsBotLabel') not in content and  info.get('outOfStockLabel') not in content and info.get('inStockLabel') in content):
+            if (info.get('detectedAsBotLabel') not in content and info.get('outOfStockLabel') not in content and info.get('inStockLabel') in content):
                 # ===================== #
                 # Price check at Amazon #
                 # ===================== #
@@ -1190,7 +1197,8 @@ def main():
                     info['inStock'] = True
             elif info.get('detectedAsBotLabel') in content:
                 detected_as_bot.append(place)
-                if info.get('webshop') in ['amazon-nl', 'amazon-fr', 'amazon-it', 'amazon-es', 'amazon-de', 'amazon-uk']:
+                if info.get('webshop') in ['amazon-nl', 'amazon-fr', 'amazon-it', 'amazon-es', 'amazon-de',
+                                           'amazon-uk']:
                     if info.get('webshop') == 'amazon-nl':
                         bot_url = 'https://www.amazon.nl/errors/validateCaptcha'
                     elif info.get('webshop') == 'amazon-fr':
@@ -1213,7 +1221,8 @@ def main():
                     solution = captcha.solve()
                     ActionChains(driver).pause(1) \
                         .send_keys_to_element(driver.find_element(By.ID, 'captchacharacters'), solution) \
-                        .click(driver.find_element(By.XPATH, '/html/body/div/div[1]/div[3]/div/div/form/div[2]/div/span/span/button')) \
+                        .click(driver.find_element(By.XPATH,
+                                                   '/html/body/div/div[1]/div[3]/div/div/form/div[2]/div/span/span/button')) \
                         .perform()
                     driver.close()
                     driver.quit()
@@ -1234,7 +1243,8 @@ def main():
 
         # print report
         print('\n')
-        console.log(f"Total requests: [bold red]{len(locations)}[/]. Amount of times detected as bot: "f"[bold red]{times_detected_as_bot}[/].")
+        console.log(
+            f"Total requests: [bold red]{len(locations)}[/]. Amount of times detected as bot: "f"[bold red]{times_detected_as_bot}[/].")
         print('\n')
 
 
