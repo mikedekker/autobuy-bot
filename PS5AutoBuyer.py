@@ -367,7 +367,7 @@ locations = {
         'webshop': 'fun-be',
         'url': 'https://www.dreamland.be/e/nl/dl/playstation-5-console-digital-edition-wit-125033',
         'inStock': False,
-        'inStockLabel': "productPageAdd2Cart",
+        'inStockLabel': "In winkelwagen",
         'outOfStockLabel': "Niet in voorraad",
         'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
 #    'Fnac BE Disk': {
