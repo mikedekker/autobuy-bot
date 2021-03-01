@@ -326,14 +326,14 @@ locations = {
         'url': 'https://www.alternate.be/Sony-Interactive-Entertainment/PlayStation-5-spelconsole/html/product/1651220',
         'inStock': False,
         'inStockLabel': "button-bg arrow-cart-white_red-right",
-        'outOfStockLabel': "Door de wereldwijde schaarste hebben we momenteel geen voorraad van de PlayStation 5 en ook geen informatie over de volgende levering. Hierdoor kan je dit product tijdelijk niet bestellen. Onze klantendienst kan je hier jammer genoeg ook geen verdere informatie over geven.",
+        'outOfStockLabel': "Nog niet bestelbaar",
         'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
     'Alternate BE Digital': {
         'webshop': 'alternate-be',
         'url': 'https://www.alternate.be/Sony-Interactive-Entertainment/PlayStation-5-Digital-Edition-spelconsole/html/product/1651221',
         'inStock': False,
         'inStockLabel': "button-bg arrow-cart-white_red-right",
-        'outOfStockLabel': "Door de wereldwijde schaarste hebben we momenteel geen voorraad van de PlayStation 5 en ook geen informatie over de volgende levering. Hierdoor kan je dit product tijdelijk niet bestellen. Onze klantendienst kan je hier jammer genoeg ook geen verdere informatie over geven.",
+        'outOfStockLabel': "Nog niet bestelbaar",
         'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
     'Mediamarkt BE Disk': {
         'webshop': 'mediamarkt-be',
