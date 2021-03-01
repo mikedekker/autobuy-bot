@@ -187,7 +187,8 @@ locations = {
         'url': 'https://www.coolblue.nl/product/878814',
         'inStock': False,
         'inStockLabel': "In mijn winkelwagen",
-        'outOfStockLabel': "Houd mij op de hoogte"},
+        'outOfStockLabel': "Houd mij op de hoogte",
+        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
     'BCC Disk en extra controller': {
         'webshop': 'bcc',
         'url': 'https://www.bcc.nl/gaming/playstation/playstation-5-console/playstation-5-bundel-met-extra-controller/302239',
