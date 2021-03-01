@@ -195,6 +195,13 @@ locations = {
         'inStockLabel': "In mijn winkelwagen",
         'outOfStockLabel': "Tijdelijk uitverkocht",
         'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
+    'BCC Disk en extra controller': {
+        'webshop': 'bcc',
+        'url': 'https://www.bcc.nl/gaming/playstation/playstation-5-console/playstation-5-bundel-met-extra-controller/302239',
+        'inStock': False,
+        'inStockLabel': "Online op voorraad",
+        'outOfStockLabel': "niet leverbaar",
+        'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
     'BOL.COM Disk': {
         'webshop': 'bol',
         'url': 'https://www.bol.com/nl/p/sony-playstation-5-console/9300000004162282/',
