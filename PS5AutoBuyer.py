@@ -1168,6 +1168,26 @@ def main():
                             ordered_items = auto_buy_item(info, ordered_items, place, settings)
                         # === SET IN-STOCK TO TRUE === #
                         info['inStock'] = True
+                else:
+                    console.log(f"[ [bold green]OMG, IN STOCK![/]  ] [ {place} ]")
+                    # === IF ENABLED, SEND Telegram === #
+                    if settings.get("telegram_notify") and not info.get('inStock'):
+                        try:
+                            bot_message = "💶Item might be in stock at {}💶".format(place)
+                            send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&disable_web_page_preview=True&parse_mode=Markdown&text=' + bot_message
+                            requests.get(send_text)
+                            bot_message = "URL: {}".format(info.get('url'))
+                            send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&disable_web_page_preview=True&text=' + bot_message
+                            requests.get(send_text)
+                        except:
+                            console.log(
+                                "[=== ERROR ===] [=== SENDING TELEGRAM MESSAGE FAILED ===]")
+                        # === IF ENABLED, BUY ITEM === #
+                    # === IF ENABLED, BUY ITEM === #
+                    if settings.get("auto_buy"):
+                        ordered_items = auto_buy_item(info, ordered_items, place, settings)
+                    # === SET IN-STOCK TO TRUE === #
+                    info['inStock'] = True
             elif info.get('detectedAsBotLabel') in content:
                 detected_as_bot.append(place)
                 if info.get('webshop') in ['amazon-nl', 'amazon-fr', 'amazon-it', 'amazon-es', 'amazon-de', 'amazon-uk']:
