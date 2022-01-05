@@ -147,21 +147,21 @@ locations = {
         'inStockLabel': "submit.add-to-cart-announce",
         'outOfStockLabel': "Currently unavailable",
         'detectedAsBotLabel': "please contact api-services-support@amazon.com"},
-    'COOLBLUE Disk': {
+    'Coolblue Disk': {
         'webshop': 'coolblue',
         'url': 'https://www.coolblue.nl/product/865866/',
         'inStock': False,
         'inStockLabel': "In mijn winkelwagen",
         'outOfStockLabel': "Houd mij op de hoogte",
         'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
-    'COOLBLUE Digital': {
+    'Coolblue Digital': {
         'webshop': 'coolblue',
         'url': 'https://www.coolblue.nl/product/865867/',
         'inStock': False,
         'inStockLabel': "In mijn winkelwagen",
         'outOfStockLabel': "Houd mij op de hoogte",
         'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
-    'COOLBLUE Disk set met controller': {
+    'Coolblue Disk set met controller': {
         'webshop': 'coolblue',
         'url': 'https://www.coolblue.nl/product/884830/',
         'inStock': False,
@@ -172,14 +172,14 @@ locations = {
         'webshop': 'bol',
         'url': 'https://www.bol.com/nl/nl/p/sony-playstation-5-console/9300000004162282/',
         'inStock': False,
-        'inStockLabel': "btn btn--cta btn--buy btn--lg ] js_floating_basket_btn js_btn_buy js_preventable_buy_action",
+        'inStockLabel': "ui-btn  ui-btn--buy ui-btn--block@screen-small js_floating_basket_btn js_btn_buy js_preventable_buy_action",
         'outOfStockLabel': "outofstock-buy-block",
         'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
     'BOL.COM Digital': {
         'webshop': 'bol',
         'url': 'https://www.bol.com/nl/nl/p/sony-playstation-5-all-digital-console/9300000004162392/',
         'inStock': False,
-        'inStockLabel': "btn btn--cta btn--buy btn--lg ] js_floating_basket_btn js_btn_buy js_preventable_buy_action",
+        'inStockLabel': "ui-btn  ui-btn--buy ui-btn--block@screen-small js_floating_basket_btn js_btn_buy js_preventable_buy_action",
         'outOfStockLabel': "outofstock-buy-block",
         'detectedAsBotLabel': "detectedAsBotPlaceholderLabel"},
     #    'MEDIAMARKT NL Disk': {
