@@ -1098,7 +1098,7 @@ def main():
                 # ===================== #
                 # Price check at Amazon #
                 # ===================== #
-                 if info.get('webshop') in ['amazon-nl', 'amazon-fr', 'amazon-it', 'amazon-es', 'amazon-de', 'amazon-uk']:
+                if info.get('webshop') in ['amazon-nl', 'amazon-fr', 'amazon-it', 'amazon-es', 'amazon-de', 'amazon-uk']:
                     soup = BeautifulSoup(content, 'html.parser')
                     price_raw = soup.body.select_one('div#corePrice_feature_div div span span').get_text()
                     if info.get('webshop') in ['amazon-nl', 'amazon-fr', 'amazon-it', 'amazon-es', 'amazon-de']:
