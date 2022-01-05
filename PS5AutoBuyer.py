@@ -683,18 +683,13 @@ def buy_item_at_amazon(driver, settings, webshop):
             .send_keys_to_element(driver.find_element(By.ID, 'ap_password'), settings.get("amazon_password")) \
             .click(driver.find_element(By.ID, 'signInSubmit')) \
             .perform()
-        # PROCESS DIFFERS
+        # FINAL SCREEN CHECK
         amazon_endscreen = True
         try:
             driver.find_element_by_class_name('place-your-order-button')
         except SE.NoSuchElementException:
             amazon_endscreen = False
         if amazon_endscreen == False:
-            # ACCEPT SHIPPING ADDRESS
-            WDW(driver, 10).until(
-                EC.presence_of_element_located((By.XPATH, "//*[@id='address-book-entry-0']/div[2]/span/a"))).click()
-            # ACCEPT SHIPPING METHOD
-            WDW(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'a-button-text'))).click()
             # SELECT PAYMENT METHOD
             if webshop == 'amazon-uk':
                 WDW(driver, 10).until(EC.presence_of_element_located((By.XPATH,
@@ -704,15 +699,31 @@ def buy_item_at_amazon(driver, settings, webshop):
             if webshop == 'amazon-de':
                 WDW(driver, 10).until(EC.presence_of_element_located((By.XPATH,
                                                                       '/html/body/div[5]/div[1]/div[2]/div[3]/div/div[2]/div[2]/form/div/div/div/div[3]/div[2]/div/div/div/div/div/div[1]/span/div/label/input'))).click()
-            WDW(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'a-button-input'))).click()
+            WDW(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'a-button-input a-button-text'))).click()
             time.sleep(10)
+            # ACCEPT SHIPPING ADDRESS
+            WDW(driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, "//*[@id='address-book-entry-0']/div[2]/span/a"))).click()
+            print("shipping address done")
+            # ACCEPT SHIPPING METHOD
+            WDW(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'a-button-text'))).click()
+            print("shipping method done")
         elif amazon_endscreen == True:
-            time.sleep(20)
+            time.sleep(2)
         # IF IN PRODUCTION, CONFIRM PURCHASE
         if in_production:
             WDW(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'place-your-order-button'))).click()
         else:
             console.log("[ Confirmation of order prevented. Application not in production ] [ See config.ini ]")
+        if settings.get("telegram_notify"):
+            try:
+                bot_message = "Hooray! Item ordered at Amazon.\n\nCheck your bank app to approve the creditcard payment"
+                send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&disable_web_page_preview=True&parse_mode=Markdown&text=' + bot_message
+                requests.get(send_text)
+            except:
+                console.log(
+                    "[=== ERROR ===] [=== SENDING TELEGRAM MESSAGE FAILED ===]")
+        time.sleep(600)
         driver.close()
         driver.quit()
         return True
