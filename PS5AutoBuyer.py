@@ -1098,29 +1098,18 @@ def main():
                 # ===================== #
                 # Price check at Amazon #
                 # ===================== #
-                if info.get('webshop') in ['amazon-nl', 'amazon-fr', 'amazon-it', 'amazon-es', 'amazon-de', 'amazon-uk']:
+                 if info.get('webshop') in ['amazon-nl', 'amazon-fr', 'amazon-it', 'amazon-es', 'amazon-de', 'amazon-uk']:
                     soup = BeautifulSoup(content, 'html.parser')
-                    price_raw = soup.body.select_one('div#price span#priceblock_ourprice').get_text()
-                    price_strip_space = price_raw.replace(' ', '')
-                    try:
-                        price_strip_euro = price_strip_space.replace('€', '')
-                    except:
-                        pass
-                    try:
-                        price_strip_euro = price_strip_space.replace('£', '')
-                    except:
-                        pass
-                    try:
+                    price_raw = soup.body.select_one('div#corePrice_feature_div div span span').get_text()
+                    if info.get('webshop') in ['amazon-nl', 'amazon-fr', 'amazon-it', 'amazon-es', 'amazon-de']:
+                        price_strip_euro = price_raw.replace('€', '')
                         price = int(price_strip_euro.replace(',', ''))
-                    except:
-                        pass
-                    try:
-                        price = int(price_strip_euro.replace('.', ''))
-                    except:
-                        pass
-                    if price <= 39000:
+                    elif info.get('webshop') in ['amazon-uk']:
+                        price_strip_pound = price_raw.replace('£', '')
+                        price = int(price_strip_pound.replace('.', ''))
+                    if 'Disk' in place and price <= 49000 or price >= 51000:
                         console.log(f"[ [bold red]ERROR PRICE [/]    ] [ {place} ] [[bold red] {price_raw} [/]]")
-                    elif price >= 41000:
+                    elif 'Digital' in place and price <= 39000 or price >= 41000:
                         console.log(f"[ [bold red]ERROR PRICE [/]    ] [ {place} ] [[bold red] {price_raw} [/]]")
                     else:
                         console.log(f"[ [bold green]OMG, IN STOCK![/]  ] [ {place} ]")
