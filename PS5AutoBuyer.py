@@ -1196,7 +1196,6 @@ def main():
                     options.use_chromium = True
                     options.headless = True
                     options.add_argument('--log-level=1')
-                    options.add_experimental_option('excludeSwitches', ['enable-logging'])
                     driver = Chrome(parser.get("driver", "path_to_driver"), options=options)
                     driver.get(bot_url)
                     captcha = AmazonCaptcha.fromdriver(driver)
